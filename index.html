@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>	
+	<meta charset="utf-8">
+	<meta name=viewport content="width=device-width, initial-scale=1">
+	<title>408 Demo</title>
+	<link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+	<link rel="stylesheet" type="text/css" href="stylesheet.css">
+	<script type="text/javascript" src="main.js"></script>
+</head>
+
+<body>
+	<div class="text-center unsorted" id="numbers">3 1 4 2 5</div>
+	<div class="text-center">
+		<script>
+		</script>
+		<button onclick="myFunction()" type="button" id="sort" class="sorting btn btn-info btn-xlarge">Sort</button>
+	</div>
+
+	<script>
+		function myFunction() {
+			document.getElementById("numbers").innerHTML = sort(getId());
+		}
+
+		function sort(unsorted) {
+			return unsorted.sort().toString();
+		}
+
+		function getId() {
+			return document.getElementById("numbers").innerHTML.split(" ");
+		}
+	</script>
+</body>
+
+</html>
