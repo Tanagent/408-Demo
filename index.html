@@ -1,37 +1,77 @@
 <!DOCTYPE html>
 <html lang="en">
 
-<head>	
-	<meta charset="utf-8">
-	<meta name=viewport content="width=device-width, initial-scale=1">
-	<title>408 Demo</title>
-	<link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
-	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
-	<link rel="stylesheet" type="text/css" href="stylesheet.css">
-	<script type="text/javascript" src="main.js"></script>
+<head>
+    <meta charset="utf-8">
+    <meta name=viewport content="width=device-width, initial-scale=1">
+    <title>408 Demo</title>
+    <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="stylesheet.css">
+    <script type="text/javascript" src="main.js"></script>
 </head>
 
 <body>
-	<div class="text-center unsorted" id="numbers">3 1 4 2 5</div>
-	<div class="text-center">
-		<script>
-		</script>
-		<button onclick="myFunction()" type="button" id="sort" class="sorting btn btn-info btn-xlarge">Sort</button>
-	</div>
+<div class="text-center unsorted" id="numbers">3 1 4 2 5</div>
+<div class="text-center">
+    <button onclick="sortNum()" type="button" id="sort" class="sorting btn btn-info btn-xlarge">Sort</button>
+    <button onclick="randNum()" type="button" id="randomize" class="sorting btn btn-info btn-xlarge">Randomize</button>
+</div>
 
-	<script>
-		function myFunction() {
-			document.getElementById("numbers").innerHTML = sort(getId());
-		}
+<script>
+    function randNum(){
+        var array = []
+        for (var i = 0; i < 5; i++){
+            array.push(getRandomInt(0, 100));
+        }
+        document.getElementById("numbers").innerHTML =  arrayToString(array);
+    }
 
-		function sort(unsorted) {
-			return unsorted.sort().toString();
-		}
 
-		function getId() {
-			return document.getElementById("numbers").innerHTML.split(" ");
-		}
-	</script>
+    function getRandomInt(min, max) {
+        return Math.floor(Math.random() * (max - min)) + min;
+    }
+
+    function sortNum() {
+        var sortedArray = sort(
+                convertTextToNumArray(
+                        getNumbersElementText()));
+        document.getElementById("numbers").innerHTML = arrayToString(sortedArray);
+    }
+
+    function arrayToString(inputArray){
+        return inputArray.toString().replace(/,/g, ' ');
+    }
+
+    function sort(unsorted) {
+        var sorted;
+        do {
+            sorted = false;
+            for (var i=0; i < unsorted.length-1; i++) {
+                if (unsorted[i] > unsorted[i+1]) {
+                    var temp = unsorted[i];
+                    unsorted[i] = unsorted[i+1];
+                    unsorted[i+1] = temp;
+                    sorted = true;
+                }
+            }
+        } while (sorted);
+        return unsorted;
+    }
+
+    function getNumbersElementText() {
+        return document.getElementById("numbers").innerHTML;
+    }
+
+    function convertTextToNumArray(inputString) {
+        var array = inputString.split(" ");
+        for (var i = 0; i < array.length; i++) {
+            array[i] = parseInt(array[i]);
+        }
+        return array;
+    }
+
+</script>
 </body>
 
 </html>
